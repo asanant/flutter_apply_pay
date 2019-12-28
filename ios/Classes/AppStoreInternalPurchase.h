@@ -5,7 +5,7 @@
 
 @property (nonatomic,copy) NSString *currentProductID;
 
-@property (nonatomic, copy) void(^handleApplePayPaymentPurchase)(NSString* verifyPurchaseBase64);
+@property (nonatomic, copy) void(^handleApplePayPaymentPurchase)(NSString* verifyPurchaseBase64,NSString* isSandbox);
 
 @property (nonatomic , copy) void(^handleApplePayPamentPurchaseErrorTips)(NSString* errorMessage);
 

@@ -128,15 +128,19 @@
     //获取数据
     NSURL *url = [[NSBundle mainBundle] appStoreReceiptURL];
     NSData *data = [NSData dataWithContentsOfURL:url];
+    NSString *sandbox=@"1";
+    if([url.absoluteString containsString:@"sandbox"]){
+        sandbox=@"1";
+    }else{
+        sandbox=@"0";
+    }
     
     NSString *base64 = [data base64EncodedStringWithOptions:NSDataBase64EncodingEndLineWithLineFeed];
     
     //游戏服务器验证
     if(self.handleApplePayPaymentPurchase){
-        
-        self.handleApplePayPaymentPurchase(base64);
+        self.handleApplePayPaymentPurchase(base64,sandbox);
     }
-    
     //应用本身验证
     //    [self appVerifyPurchase:base64];
 }

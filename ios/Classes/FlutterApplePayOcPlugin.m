@@ -76,11 +76,12 @@ static NSString * const MERCHANTS_ENTITLEMENTS = @"MerchantsEntitlements";
     appStoreInternalPurchase.view.frame = [[UIScreen mainScreen] bounds];
     [viewController.view addSubview:appStoreInternalPurchase.view];
     
-    [appStoreInternalPurchase setHandleApplePayPaymentPurchase:^(NSString *verifyPurchaseBase64) {
+    [appStoreInternalPurchase setHandleApplePayPaymentPurchase:^(NSString *verifyPurchaseBase64, NSString *isSandbox) {
         
         NSDictionary *verifyDic = @{
             @"orderid":orderid,
-            @"receipt-data":verifyPurchaseBase64
+            @"receipt-data":verifyPurchaseBase64,
+            @"sandbox":isSandbox
             //                                        @"pixu_type":@"appleStore"
         };
         NSData *verifyData = [NSJSONSerialization dataWithJSONObject:verifyDic options:kNilOptions error:nil];
@@ -88,6 +89,8 @@ static NSString * const MERCHANTS_ENTITLEMENTS = @"MerchantsEntitlements";
         
         result(verifyString);
     }];
+    
+
     
     [appStoreInternalPurchase setHandleApplePayPamentPurchaseErrorTips:^(NSString *errorMessage) {
         NSLog(@"错误信息：%@",errorMessage);
@@ -102,6 +105,7 @@ static NSString * const MERCHANTS_ENTITLEMENTS = @"MerchantsEntitlements";
             };
             NSData *verifyData = [NSJSONSerialization dataWithJSONObject:verifyDic options:kNilOptions error:nil];
             NSString *verifyString = [[NSString alloc] initWithBytes:verifyData.bytes length:verifyData.length encoding:NSUTF8StringEncoding];
+              result(verifyString);
         });
         //         [view_controller showMBHUDMessage:errorMessage];
         //         [view_controller hideMBHUDProgress];

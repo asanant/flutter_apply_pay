@@ -54,7 +54,7 @@ class FlutterApplePayOc {
     Map<String, dynamic> map = json.decode(result);
     print("$map");
     return AppStoreInternalPurchaseResult(
-        orderid: map["orderid"], receipt_data: map["receipt-data"]);
+        orderid: map["orderid"], receipt_data: map["receipt-data"],isSandbox: map["sandbox"]);
   }
 }
 
@@ -85,7 +85,9 @@ class AppStoreInternalPurchaseResult {
   //回执信息
   String receipt_data;
 
-  AppStoreInternalPurchaseResult({this.orderid, this.receipt_data}) {
+  String isSandbox;
+
+  AppStoreInternalPurchaseResult({this.orderid, this.receipt_data,this.isSandbox}) {
     if (orderid == null) {
       print("AppStoreInternalPurchaseResult orderid is empty");
     }
